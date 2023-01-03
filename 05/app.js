@@ -67,26 +67,33 @@ function addUser(){
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        // const {firstName, lastName} = e.target.elements
-        // console.log(firstName, lastName)
+      //const {firstName, lastName} = e.target.elements
 
         const data = {
             firstName: firstName.value,
             lastName: lastName.value,
         }
 
+        const options = {
+            method:'POST',
+            body: JSON.stringify( data ),
+            headers: {'Content-Type':'application/json'} 
+        };
+
+        fetch(apiUrl, options)            
+            .then(resp=>console.log(resp))            
+            .catch(err=>console.error(err))            
+            .finally( loadUsers);    
+
        
 
-        const promise = fetchData(apiUrl, data)    
-        promise       
-            //.then(data=>console.log(data))           
-            .catch(err=>console.error(err))            
-            .finally(() =>  loadUsers());
+        // const promise = fetchData(apiUrl, data)    
+        // promise       
+        //     //.then(data=>console.log(data))           
+        //     .catch(err=>console.error(err))            
+        //     .finally(() =>  loadUsers());
 
-        // const promise = fetchPost(apiUrl, data);
-        // promise
-        //     .catch(err => console.error(err))
-        //     .finally(() => loadUsers())
+       
     });
   
 }
